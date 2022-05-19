@@ -5,18 +5,25 @@
       <h2 class="todo__title">Today I need to</h2>
       <div class="todo__wrapper">
         <TodoForm @submit-form="getTodo"/>
-        <ul class="todo__list" v-if="todoList.length > 0">
-          <Task 
-            v-for="task in todoList" 
-            :text="task.text" 
-            :key="task.id" 
-            :isCompleted="task.isCompleted"
-            :id="task.id"
-            @check-item="checkTodo"
-            @remove-item="removeTodo"
-            @edit-item="editTodo"
-            /> 
-        </ul>
+        <div class="todo-block" v-if="todoList.length > 0">
+          <ul class="todo__list">
+            <Task 
+              v-for="task in todoList" 
+              :text="task.text" 
+              :key="task.id" 
+              :isCompleted="task.isCompleted"
+              :id="task.id"
+              @check-item="checkTodo"
+              @remove-item="removeTodo"
+              @edit-item="editTodo"
+              /> 
+          </ul>
+          <div class="todo__grid">
+            <InfoBlock blockName="Completed" color="#5D5FEF" :tasksAmount="todoList.reduce((prev, item) => item.isCompleted ? prev+=1 : prev,0)" :totalTasks="todoList.length"/>
+            <InfoBlock blockName="To be finished" color="#EF5DA8" :tasksAmount="todoList.reduce((prev, item) => !item.isCompleted ? prev+=1 : prev,0)" :totalTasks="todoList.length"/>
+          </div>
+
+        </div>
       </div>
     </div>
     <div class="todo__footer" v-if="todoList.length === 0">
@@ -30,11 +37,13 @@ import {defineComponent } from "vue";
 import type {Todo} from "./types";
 import TodoForm from "./components/TodoForm.vue";
 import Task from "./components/Task.vue";
+import InfoBlock from './components/InfoBlock.vue';
 
 export default defineComponent({
   name: "App",
   components: {
     TodoForm,
+    InfoBlock,
     Task
   },
   data():{todoList: Todo[] | []} {
@@ -117,6 +126,12 @@ export default defineComponent({
       max-width: 410px;
       overflow: hidden;
       margin: 3.25rem auto 0;
+    }
+    &__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+      margin-top: 32px;
     }
     &__footer {
       display: flex;

@@ -1,7 +1,7 @@
 <template>
   <form :class="inputValue.length < 2 ? 'form' : 'form show-btn'" @submit="submitTodo">
     <input type="text" class="input" placeholder="Add new todo..." v-model="inputValue">
-    <Btn title="Submit" btnClass="btn_form" :isDisabled="inputValue.length > 2 ? false : true"/>
+    <Btn title="Submit" btnClass="btn_form" :isDisabled="inputValue.length >= 2 ? false : true"/>
   </form>
 </template>
 <script lang="ts">
