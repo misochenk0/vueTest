@@ -6,7 +6,10 @@
 		</div>
 		<div class="todo-info__title">{{blockName}}</div>
 		<div class="todo-info__progress">
-			<div class="todo-info__scale" :style="'width: ' + (tasksAmount*100/totalTasks === 0 ? '1' : tasksAmount*100/totalTasks) + '%;' + 'background: ' + (color ? color : '#5D5FEF')"></div>
+			<div 
+				class="todo-info__scale" 
+				:style="'width: ' + (tasksAmount*100/totalTasks === 0 ? '1' : tasksAmount*100/totalTasks) + '%;' + 'background: ' + (color ? color : '#5D5FEF')">
+			</div>
 		</div>
 	</div>
 </template>

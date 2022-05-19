@@ -1,0 +1,38 @@
+[
+	{
+		"name": "Check all",
+		"type": "check-all",
+		"isActive": false,
+		"isShowed": true,
+		"category": "check-all"
+	},
+	{
+		"name": "All",
+		"type": "show-all",
+		"isActive": true,
+		"isShowed": true,
+		"category": "filter"
+
+	},
+	{
+		"name": "Active",
+		"type": "show-active",
+		"isActive": false,
+		"isShowed": true,
+		"category": "filter"
+	},
+	{
+		"name": "Completed",
+		"type": "show-completed",
+		"isActive": false,
+		"isShowed": true,
+		"category": "filter"
+	},
+	{
+		"name": "Clear completed",
+		"type": "clear-completed",
+		"isActive": false,
+		"isShowed": true,
+		"category": "clear"
+	}
+]

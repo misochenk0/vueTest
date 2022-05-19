@@ -1,27 +1,19 @@
 <template>
   <div class="todo">
+    <TodoHeader/>
     <div class="todo__body">
-      <img src="./assets/todo-img.svg" alt="todo-img" class="todo__img">
-      <h2 class="todo__title">Today I need to</h2>
       <div class="todo__wrapper">
         <TodoForm @submit-form="getTodo"/>
         <div class="todo-block" v-if="todoList.length > 0">
-          <ul class="todo__list">
-            <Task 
-              v-for="task in displayedTodos" 
-              :text="task.text" 
-              :key="task.id" 
-              :isCompleted="task.isCompleted"
-              :id="task.id"
-              @check-item="checkTodo"
-              @remove-item="removeTodo"
-              @edit-item="editTodo"
-              /> 
-          </ul>
-          <div class="todo__grid">
-            <InfoBlock blockName="Completed" color="#5D5FEF" :tasksAmount="todoList.reduce((prev, item) => item.isCompleted ? prev+=1 : prev,0)" :totalTasks="todoList.length"/>
-            <InfoBlock blockName="To be finished" color="#EF5DA8" :tasksAmount="todoList.reduce((prev, item) => !item.isCompleted ? prev+=1 : prev,0)" :totalTasks="todoList.length"/>
-          </div>
+          <TodoList 
+            :list="todoList" 
+            :displayedList="displayedTodos" 
+            @update-state="updateState"
+          />
+          <TodoInfo 
+            :list="todoList" 
+            :displayedList="displayedTodos"
+          />
           <div :class="'todo__btns ' + (onlyAll ? 'only-all' : '') ">
             <Btn v-for="btn in filters" 
                 :key="btn.name" 
@@ -36,27 +28,34 @@
         </div>
       </div>
     </div>
-    <div class="todo__footer" v-if="todoList.length === 0">
-      <img src="./assets/check.svg" alt="">
-      Congrat, you have no more tasks to do
-    </div>
+    <TodoFooter v-if="todoList.length === 0"/>
   </div>
 </template>
 <script lang="ts">
 import {defineComponent } from "vue";
+
+import filtersData from "./data/filterData.json"
+
 import type {Todo, Filter} from "./types";
+
+import TodoHeader from "./components/TodoHeader.vue";
 import TodoForm from "./components/TodoForm.vue";
-import Task from "./components/Task.vue";
+import TodoInfo from "./components/TodoInfo.vue";
+import TodoList from "./components/TodoList.vue";
 import Btn from "./components/Btn.vue";
-import InfoBlock from './components/InfoBlock.vue';
+import TodoFooter from "./components/TodoFooter.vue";
+
+
 
 export default defineComponent({
   name: "App",
   components: {
+    TodoHeader,
     TodoForm,
+    TodoList,
+    TodoInfo,
     Btn,
-    InfoBlock,
-    Task
+    TodoFooter,
   },
   data():{todoList: Todo[] | [], displayedTodos: Todo[] | [], onlyAll: Boolean, currentFilter: String, filters: Filter[] | []} {
     return {
@@ -64,45 +63,7 @@ export default defineComponent({
       displayedTodos: [],
       currentFilter: "show-all",
       onlyAll: false,
-      filters: [
-        {
-          name: "Check all",
-          type: "check-all",
-          isActive: false,
-          isShowed: true,
-          category: "check-all"
-        },
-        {
-          name: "All",
-          type: "show-all",
-          isActive: true,
-          isShowed: true,
-          category: "filter"
-
-        },
-        {
-          name: "Active",
-          type: "show-active",
-          isActive: false,
-          isShowed: true,
-          category: "filter"
-        },
-        {
-          name: "Completed",
-          type: "show-completed",
-          isActive: false,
-          isShowed: true,
-          category: "filter"
-        },
-        {
-          name: "Clear completed",
-          type: "clear-completed",
-          isActive: false,
-          isShowed: true,
-          category: "clear"
-        },
-
-      ]
+      filters: filtersData
     }
   },
   mounted() {
@@ -166,40 +127,10 @@ export default defineComponent({
     getTodo(todo: Todo):void {
       this.todoList = [...this.todoList, todo] 
     },
-    checkTodo(id:String, isChecked: Boolean):void {
-      this.todoList = this.todoList.map(item => {
-        if(item.id === id) {
-          return {
-            ...item,
-            isCompleted: isChecked
-          }
-        } 
-        return item
-        
-      })
+    updateState(list: Todo[]) {
+      this.todoList = list
     },
-    removeTodo(id:String) {
-      this.todoList = this.todoList.filter(item => {
-        if(item.id === id) {
-          return null
-        }
-        return item
-      })
-    },
-    editTodo(id:String, text: String) {
-      this.todoList = this.todoList.filter(item => {
-        if(item.id === id) {
-          return {
-            ...item,
-            text: text
-          }
-        }
-        return item
-      })
-    },
-    useFilter(type: String) {
-      console.log(type);
-      
+    useFilter(type: String) {     
       if(type === "check-all") {
         this.todoList = this.todoList.map(item => {
           if(!item.isCompleted) {
@@ -259,20 +190,9 @@ export default defineComponent({
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    &__list {
-      margin-top: 40px;
-      height: 92px;
-      overflow-y: auto;
-    }
-    &__img {
-      display: block;
-      margin: 0 auto;
-    }
-    &__title {
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-top: 2em;
-      text-align: center;
+
+    &__body {
+      flex: 1;
     }
     &__wrapper {
       max-width: 410px;
@@ -291,21 +211,6 @@ export default defineComponent({
           transform: translateX(50%);
         }
       }
-    }
-    &__grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 30px;
-      margin-top: 32px;
-    }
-    &__footer {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      column-gap: 11px;
-      color: #8F99A3;
-      font-size: 14px;
-      line-height: 1.14;
     }
   }
 </style>
