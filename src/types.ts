@@ -1,12 +1,12 @@
 export interface Todo {
-  text: String,
-  isCompleted: Boolean,
-  id:String
+  text: string;
+  isCompleted: boolean;
+  id: string;
 }
 export interface Filter {
-	name: String, 
-	type: String, 
-	isActive: Boolean, 
-	isShowed: Boolean,
-	category: String
+  name: string;
+  type: string;
+  isActive: boolean;
+  isShowed: boolean;
+  category: string;
 }
