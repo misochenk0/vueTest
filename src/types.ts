@@ -3,3 +3,10 @@ export interface Todo {
   isCompleted: Boolean,
   id:String
 }
+export interface Filter {
+	name: String, 
+	type: String, 
+	isActive: Boolean, 
+	isShowed: Boolean,
+	category: String
+}

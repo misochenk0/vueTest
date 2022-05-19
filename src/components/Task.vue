@@ -1,7 +1,7 @@
 <template>
-  <li :class="isChecked ? 'task checked' : 'task'">
+  <li :class="isCompleted ? 'task checked' : 'task'">
 		<label class="fake">
-			<input type="checkbox" :checked="isChecked" @input="checkTask">
+			<input type="checkbox" :checked="isCompleted" @input="checkTask">
 			<span class="fake-checkbox"></span>
 		</label>
 		<form class="task__form" @submit="editTask">
@@ -24,7 +24,6 @@ import {defineComponent } from "vue";
 
 interface data {
 	isDisabled: Boolean, 
-	isChecked: Boolean, 
 	inputData: String, 
 	currentText: String
 }
@@ -39,7 +38,6 @@ export default defineComponent ({
   data():data {
     return {
 			isDisabled: true,
-			isChecked: this.isCompleted,
 			inputData: this.text,
 			currentText: ""
 		}
@@ -47,11 +45,10 @@ export default defineComponent ({
 	methods: {
 		checkTask(e: Event):void {
 			if((e.target as HTMLInputElement).checked) {
-				this.isChecked = true
+				this.$emit("check-item", this.id, true)
 			} else {
-				this.isChecked = false
+				this.$emit("check-item", this.id, false)
 			}
-			this.$emit("check-item", this.id, this.isChecked)
 		},
 		removeTask():void {
 			this.$emit("remove-item", this.id)

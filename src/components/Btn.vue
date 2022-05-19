@@ -1,14 +1,23 @@
 <template>
-  <button :class="'btn ' + btnClass" :disabled="isDisabled">{{title}}</button>
+  <button :class="'btn ' + btnClass + (isActive ? ' active' : '') + (isShowed ? '' : ' hidden') + (category ?  ' ' + category : '')" :disabled="isDisabled" @click="btnType ? pressBtn() : null">{{title}}</button>
 </template>
-<script>
+<script lang="ts">
 import {defineComponent } from "vue";
 export default defineComponent ({
   name: "Btn",
   props: {
     title: String,
     btnClass: String,
-    isDisabled: Boolean
+    isDisabled: Boolean,
+    btnType: String,
+    isShowed: Boolean,
+    isActive: Boolean,
+    category: String
+  },
+  methods: {
+    pressBtn():void {
+      this.$emit("press-btn", this.btnType)
+    }
   }
 })
 </script>
@@ -21,7 +30,11 @@ export default defineComponent ({
     font-weight: 600;
     line-height: 1.23;
     padding: 11px 16px;
+    transition: .5s all;
     cursor: pointer;
+    &.filter.hidden {
+      display: none;
+    }
     &_form {
       margin-left: 16px;
       background: $color-blue;
@@ -33,6 +46,25 @@ export default defineComponent ({
       }
       &.active {
         transform: none;
+      }
+    }
+    &_filter {
+      padding: 8px 12px;
+      background: none;
+      &.active {
+        background: $color-blue;
+        color: #fff;
+        cursor: default;
+        &:hover {
+          color: #fff;
+        }
+      }
+      &.hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+      &:hover {
+        color: $color-blue;
       }
     }
   }
