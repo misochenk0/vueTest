@@ -1,28 +1,32 @@
 <template>
-  <ul class="todo__list">
+  <draggable class="todo__list" tag="ul" :list="todoList" :disabled="filter === 'show-all' ? false : true" @change="changeList" handle=".task__drag">
     <TodoTask
       v-for="task in displayedList"
       :text="task.text"
       :key="task.id"
       :isCompleted="task.isCompleted"
       :id="task.id"
+      :isDraggable="filter === 'show-all' ? true : false"
       @check-item="checkTodo"
       @remove-item="removeTodo"
       @edit-item="editTodo"
     />
-  </ul>
+  </draggable>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
 import TodoTask from "./TodoTask.vue";
 import type { Todo } from "../types";
 
+import { VueDraggableNext } from 'vue-draggable-next';
+
 export default defineComponent({
   name: "TodoInfo",
   components: {
     TodoTask,
+    draggable: VueDraggableNext
   },
-  props: {
+  props: {  
     displayedList: {
       type: Array as () => Todo[] | [],
       required: true,
@@ -31,18 +35,22 @@ export default defineComponent({
       type: Array as () => Todo[] | [],
       required: true,
     },
+    filter: String
   },
   data(): { todoList: Todo[] | [] } {
     return {
-      todoList: this.list,
+      todoList: this.list
     };
   },
   watch: {
     todoList: function () {
       this.$emit("update-state", this.todoList);
     },
+    list: function() {
+      this.todoList = this.list
+    }
   },
-  mounted() {
+  mounted() {   
     this.todoList = [...this.list];
   },
   methods: {
@@ -56,6 +64,9 @@ export default defineComponent({
         }
         return item;
       });
+    },
+    changeList() {
+      this.$emit("update-state", this.todoList)
     },
     removeTodo(id: string) {
       this.todoList = this.list.filter((item) => {
@@ -80,11 +91,14 @@ export default defineComponent({
 });
 </script>
 <style lang="scss">
+@import "../assets/style/mixins";
+
 .todo {
   &__list {
     margin-top: 40px;
     height: 92px;
-    overflow-y: auto;
+    overflow-x: clip;
+    @include scrollbar;
   }
 }
 </style>

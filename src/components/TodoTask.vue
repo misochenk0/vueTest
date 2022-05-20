@@ -1,5 +1,8 @@
 <template>
   <li :class="isCompleted ? 'task checked' : 'task'">
+    <button class="task__drag" v-if="isDraggable">
+      <img src="../assets/dots.svg" alt="drag-dots">
+    </button>
     <label class="fake">
       <input type="checkbox" :checked="isCompleted" @input="checkTask" />
       <span class="fake-checkbox"></span>
@@ -41,6 +44,7 @@ export default defineComponent({
     text: { type: String, required: true },
     isCompleted: { type: Boolean, required: true },
     id: { type: String, required: true },
+    isDraggable: {type: Boolean, required: true}
   },
   data(): data {
     return {
@@ -87,6 +91,8 @@ export default defineComponent({
   column-gap: 10px;
   align-items: center;
   width: 100%;
+  padding: 0 12px 0 24px;
+  position: relative;
   & + & {
     margin-top: 20px;
   }
@@ -95,10 +101,26 @@ export default defineComponent({
       opacity: 0.5;
     }
   }
+  &:hover {
+    .task__drag {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+  &__drag {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    opacity: 0;
+    transition: .5s all;
+    visibility: hidden;
+    transform: translateY(-50%);
+  }
   &__edit,
   &__remove,
   &__submit,
-  &__reset {
+  &__reset,
+  &__drag {
     background: none;
     border: none;
     cursor: pointer;
@@ -122,6 +144,7 @@ export default defineComponent({
   &__input {
     font-size: 14px;
     line-height: 1.14;
+    background: none;
     color: $color-black;
     width: 100%;
     &[disabled] {

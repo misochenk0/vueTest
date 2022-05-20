@@ -1,0 +1,16 @@
+@mixin scrollbar() {
+	overflow-y: auto;
+	scrollbar-width: thin;
+	scrollbar-color: rgba(32, 36, 39, 0.1) transparent;
+	&::-webkit-scrollbar {
+		width: 4px;
+	}
+	&::-webkit-scrollbar-track {
+		background: transparent;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background-color: rgba(32, 36, 39, 0.1);
+		border-radius: 8px;
+	}
+}

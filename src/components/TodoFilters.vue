@@ -66,6 +66,7 @@ export default defineComponent({
           };
         }
       });
+      this.$emit("change-filter", this.currentFilter)
     },
     list: function () {
       this.displayed = this.todoList;

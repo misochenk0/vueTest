@@ -2,17 +2,21 @@
   <div class="todo__body">
     <div class="todo__wrapper">
       <TodoForm @submit-form="getTodo" />
-      <div class="todo-block" v-if="list.length > 0">
-        <TodoList
-          :list="list"
-          :displayedList="displayed"
-          @update-state="updateState"
-        />
+    </div>
+    <div class="todo-block" v-if="list.length > 0">
+      <TodoList
+        :list="list"
+        :displayedList="displayed"
+        :filter="currentFilter"
+        @update-state="updateState"
+      />
+      <div class="todo__wrapper">
         <TodoInfo :list="list" :displayedList="displayed" />
         <TodoFilters
           :list="list"
           :displayedList="displayed"
           @update-state="updateState"
+          @change-filter="changeFilter"
         />
       </div>
     </div>
@@ -38,10 +42,12 @@ export default defineComponent({
   data(): {
     list: Todo[] | [];
     displayed: Todo[] | [];
+    currentFilter: string;
   } {
     return {
       list: this.todoList,
       displayed: [],
+      currentFilter: "show-all"
     };
   },
   mounted() {
@@ -65,10 +71,14 @@ export default defineComponent({
         this.displayed = displayedList;
         return;
       }
+      
       this.list = list;
       this.displayed = this.todoList;
       this.$emit("update-state", this.list);
     },
+    changeFilter(filter: string) {
+      this.currentFilter = filter
+    }
   },
 });
 </script>
@@ -76,6 +86,13 @@ export default defineComponent({
 .todo {
   &__body {
     flex: 1;
+  }
+  &-block {
+    max-width: 458px;
+    margin: 0 auto;
+    .todo__wrapper {
+      margin-top: 0;
+    }
   }
   &__wrapper {
     max-width: 410px;

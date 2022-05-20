@@ -16,6 +16,7 @@ export default defineComponent({
 .todo {
   &__footer {
     display: flex;
+    margin-top: 20px;
     align-items: center;
     justify-content: center;
     column-gap: 11px;
