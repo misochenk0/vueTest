@@ -46,7 +46,7 @@ export default defineComponent({
     isCompleted: { type: Boolean, required: true },
     id: { type: String, required: true },
     isDraggable: { type: Boolean, required: true },
-    filter: { type: String, required: true },
+    filter: String,
   },
   data(): data {
     return {
