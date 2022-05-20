@@ -6,15 +6,14 @@
     <div class="todo-block" v-if="list.length > 0">
       <TodoList
         :list="list"
-        :displayedList="displayed"
         :filter="currentFilter"
         @update-state="updateState"
       />
       <div class="todo__wrapper">
-        <TodoInfo :list="list" :displayedList="displayed" />
+        <TodoInfo :list="list"/>
         <TodoFilters
           :list="list"
-          :displayedList="displayed"
+          :filter="currentFilter"
           @update-state="updateState"
           @change-filter="changeFilter"
         />
@@ -41,39 +40,33 @@ export default defineComponent({
   },
   data(): {
     list: Todo[] | [];
-    displayed: Todo[] | [];
     currentFilter: string;
   } {
     return {
       list: this.todoList,
-      displayed: [],
       currentFilter: "show-all"
     };
-  },
-  mounted() {
-    this.displayed = this.list;
   },
   props: {
     todoList: { type: Array as () => Todo[] | [], required: true },
   },
   watch: {
-    list: function () {
-      this.displayed = this.list;
+    currentFilter:function() {
+      this.$emit("update-state", this.list);
     },
+    list:function() {
+      if(this.list.every(item => item.isCompleted === true) || this.list.every(item => item.isCompleted === false)) {
+        this.currentFilter = "show-all"
+      }
+    }
   },
   methods: {
     getTodo(todo: Todo): void {
       this.list = [...this.list, todo];
       this.$emit("update-state", this.list);
     },
-    updateState(list: Todo[], displayedList?: Todo[]) {
-      if (displayedList) {
-        this.displayed = displayedList;
-        return;
-      }
-      
+    updateState(list: Todo[]) {
       this.list = list;
-      this.displayed = this.todoList;
       this.$emit("update-state", this.list);
     },
     changeFilter(filter: string) {

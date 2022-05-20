@@ -1,11 +1,12 @@
 <template>
   <draggable class="todo__list" tag="ul" :list="todoList" :disabled="filter === 'show-all' ? false : true" @change="changeList" handle=".task__drag">
     <TodoTask
-      v-for="task in displayedList"
+      v-for="task in todoList"
       :text="task.text"
       :key="task.id"
       :isCompleted="task.isCompleted"
       :id="task.id"
+      :filter="filter"
       :isDraggable="filter === 'show-all' ? true : false"
       @check-item="checkTodo"
       @remove-item="removeTodo"
@@ -26,11 +27,7 @@ export default defineComponent({
     TodoTask,
     draggable: VueDraggableNext
   },
-  props: {  
-    displayedList: {
-      type: Array as () => Todo[] | [],
-      required: true,
-    },
+  props: { 
     list: {
       type: Array as () => Todo[] | [],
       required: true,

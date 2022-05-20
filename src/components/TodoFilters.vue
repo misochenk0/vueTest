@@ -27,34 +27,30 @@ export default defineComponent({
     TodoBtn,
   },
   props: {
-    displayedList: {
-      type: Array as () => Todo[] | [],
-      required: true,
-    },
     list: {
       type: Array as () => Todo[] | [],
       required: true,
     },
+    filter: {
+      type: String,
+      required: true
+    }
   },
   data(): {
     filters: Filter[] | [];
     onlyAll: boolean;
     todoList: Todo[] | [];
-    displayed: Todo[] | [];
-    currentFilter: string;
   } {
     return {
       filters: filtersData,
-      currentFilter: "show-all",
       onlyAll: false,
-      displayed: this.displayedList,
       todoList: this.list,
     };
   },
   watch: {
-    currentFilter: function () {
+    filter: function () {            
       this.filters = this.filters.map((item) => {
-        if (item.type === this.currentFilter) {
+        if (item.type === this.filter) {
           return {
             ...item,
             isActive: true,
@@ -66,20 +62,18 @@ export default defineComponent({
           };
         }
       });
-      this.$emit("change-filter", this.currentFilter)
     },
-    list: function () {
-      this.displayed = this.todoList;
+    list: function () {      
       this.filters = this.filters.map((item) => {
         if (item.type === "check-all") {
-          this.currentFilter = "show-all";
+          // this.$emit("change-filter", this.filter)
           return {
             ...item,
             isShowed: this.list.some((item) => item.isCompleted === false),
           };
         }
         if (item.type === "clear-completed") {
-          this.currentFilter = "show-all";
+          // this.$emit("change-filter", this.filter)
           return {
             ...item,
             isShowed: this.list.some((item) => item.isCompleted === true),
@@ -127,32 +121,9 @@ export default defineComponent({
           return item;
         });
       }
-      if (type === "show-all") {
-        this.currentFilter = type;
-        this.todoList = this.list;
-      }
-
-      if (type === "show-active") {
-        this.currentFilter = type;
-        this.displayed = this.list.filter((item) => {
-          if (!item.isCompleted) {
-            return item;
-          }
-          return null;
-        });
-        this.$emit("update-state", this.todoList, this.displayed);
-        return;
-      }
-      if (type === "show-completed") {
-        this.currentFilter = type;
-        this.displayed = this.list.filter((item) => {
-          if (item.isCompleted) {
-            return item;
-          }
-          return null;
-        });
-        this.$emit("update-state", this.todoList, this.displayed);
-        return;
+      if (type === "show-all" || type === "show-active" || type === "show-completed") {
+        this.$emit("change-filter", type)
+        return 
       }
       this.$emit("update-state", this.todoList);
     },
