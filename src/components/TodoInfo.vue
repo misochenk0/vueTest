@@ -42,4 +42,10 @@ export default defineComponent({
     margin-top: 32px;
   }
 }
+
+@media (max-width: 575px) {
+  .todo__grid {
+    gap: 15px;
+  }
+}
 </style>

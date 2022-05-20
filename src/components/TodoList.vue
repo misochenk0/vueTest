@@ -81,7 +81,7 @@ export default defineComponent({
       });
     },
     editTodo(id: string, text: string) {
-      this.todoList = this.list.filter((item) => {
+      this.todoList = this.list.map((item) => {
         if (item.id === id) {
           return {
             ...item,

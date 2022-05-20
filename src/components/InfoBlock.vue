@@ -86,4 +86,11 @@ export default defineComponent({
     }
   }
 }
+@media (max-width: 575px) {
+  .todo {
+    &-info {
+      padding: 1rem 0.5rem;
+    }
+  }
+}
 </style>

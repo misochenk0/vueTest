@@ -44,3 +44,9 @@
 	overflow-y: auto;
 	@include scrollbar;
 }
+
+@media(max-width: 575px) {
+	.todo {
+		padding: 1rem;
+	}
+}

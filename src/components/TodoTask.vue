@@ -152,6 +152,7 @@ export default defineComponent({
     width: 16px;
     height: 16px;
     display: flex;
+    flex-shrink: 0;
     align-items: center;
     justify-content: center;
     img {
@@ -163,6 +164,7 @@ export default defineComponent({
     width: 100%;
     display: flex;
     align-items: center;
+    max-width: 330px;
     column-gap: 10px;
   }
 

@@ -72,4 +72,16 @@ export default defineComponent({
     border: 1px solid $color-blue;
   }
 }
+
+@media (max-width: 576px) {
+  .input {
+    width: 160px;
+  }
+  .form {
+    max-width: 160px;
+    &.show-btn {
+      max-width: 300px;
+    }
+  }
+}
 </style>

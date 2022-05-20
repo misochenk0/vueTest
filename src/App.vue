@@ -21,9 +21,7 @@ export default defineComponent({
     TodoBody,
     TodoFooter,
   },
-  data(): {
-    todoList: Todo[] | [];
-  } {
+  data(): { todoList: Todo[] | [] } {
     return {
       todoList: this.getTodos(),
     };

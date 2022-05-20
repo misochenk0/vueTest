@@ -38,10 +38,7 @@ export default defineComponent({
     TodoInfo,
     TodoFilters,
   },
-  data(): {
-    list: Todo[] | [];
-    currentFilter: string;
-  } {
+  data(): { list: Todo[] | []; currentFilter: string } {
     return {
       list: this.todoList,
       currentFilter: "show-all",

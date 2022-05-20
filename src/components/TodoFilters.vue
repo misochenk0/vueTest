@@ -36,11 +36,7 @@ export default defineComponent({
       required: true,
     },
   },
-  data(): {
-    filters: Filter[] | [];
-    onlyAll: boolean;
-    todoList: Todo[] | [];
-  } {
+  data(): { filters: Filter[] | []; onlyAll: boolean; todoList: Todo[] | [] } {
     return {
       filters: filtersData,
       onlyAll: false,
@@ -148,6 +144,12 @@ export default defineComponent({
         transform: translateX(50%);
       }
     }
+  }
+}
+
+@media (max-width: 575px) {
+  .todo__btns {
+    flex-wrap: wrap;
   }
 }
 </style>

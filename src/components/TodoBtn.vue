@@ -80,4 +80,10 @@ export default defineComponent({
     }
   }
 }
+
+@media (max-width: 575px) {
+  .btn {
+    font-size: 11px;
+  }
+}
 </style>
