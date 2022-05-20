@@ -1,6 +1,10 @@
 {
   "name": "vue-todo-test",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "Vue todo test for mc app",
+  "engines": {
+    "node": "14.17.6"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
