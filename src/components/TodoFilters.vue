@@ -33,8 +33,8 @@ export default defineComponent({
     },
     filter: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   data(): {
     filters: Filter[] | [];
@@ -48,7 +48,7 @@ export default defineComponent({
     };
   },
   watch: {
-    filter: function () {            
+    filter: function () {
       this.filters = this.filters.map((item) => {
         if (item.type === this.filter) {
           return {
@@ -63,7 +63,7 @@ export default defineComponent({
         }
       });
     },
-    list: function () {      
+    list: function () {
       this.filters = this.filters.map((item) => {
         if (item.type === "check-all") {
           // this.$emit("change-filter", this.filter)
@@ -121,9 +121,13 @@ export default defineComponent({
           return item;
         });
       }
-      if (type === "show-all" || type === "show-active" || type === "show-completed") {
-        this.$emit("change-filter", type)
-        return 
+      if (
+        type === "show-all" ||
+        type === "show-active" ||
+        type === "show-completed"
+      ) {
+        this.$emit("change-filter", type);
+        return;
       }
       this.$emit("update-state", this.todoList);
     },

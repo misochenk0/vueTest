@@ -10,7 +10,7 @@
         @update-state="updateState"
       />
       <div class="todo__wrapper">
-        <TodoInfo :list="list"/>
+        <TodoInfo :list="list" />
         <TodoFilters
           :list="list"
           :filter="currentFilter"
@@ -44,21 +44,24 @@ export default defineComponent({
   } {
     return {
       list: this.todoList,
-      currentFilter: "show-all"
+      currentFilter: "show-all",
     };
   },
   props: {
     todoList: { type: Array as () => Todo[] | [], required: true },
   },
   watch: {
-    currentFilter:function() {
+    currentFilter: function () {
       this.$emit("update-state", this.list);
     },
-    list:function() {
-      if(this.list.every(item => item.isCompleted === true) || this.list.every(item => item.isCompleted === false)) {
-        this.currentFilter = "show-all"
+    list: function () {
+      if (
+        this.list.every((item) => item.isCompleted === true) ||
+        this.list.every((item) => item.isCompleted === false)
+      ) {
+        this.currentFilter = "show-all";
       }
-    }
+    },
   },
   methods: {
     getTodo(todo: Todo): void {
@@ -70,8 +73,8 @@ export default defineComponent({
       this.$emit("update-state", this.list);
     },
     changeFilter(filter: string) {
-      this.currentFilter = filter
-    }
+      this.currentFilter = filter;
+    },
   },
 });
 </script>

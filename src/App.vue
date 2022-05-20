@@ -29,17 +29,17 @@ export default defineComponent({
     };
   },
   methods: {
-    getTodos(): Todo[] | [] {     
+    getTodos(): Todo[] | [] {
       let todos: string | null = sessionStorage.getItem("todosList");
-      if(todos) {
-        return JSON.parse(todos)
-      } else  {
-        return []
+      if (todos) {
+        return JSON.parse(todos);
+      } else {
+        return [];
       }
     },
     updateState(list: Todo[]) {
       this.todoList = list;
-      sessionStorage.setItem("todosList", JSON.stringify(this.todoList))
+      sessionStorage.setItem("todosList", JSON.stringify(this.todoList));
     },
   },
 });

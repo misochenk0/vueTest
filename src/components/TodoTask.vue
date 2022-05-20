@@ -1,7 +1,7 @@
 <template>
   <li :class="isCompleted ? 'task checked' : 'task'" v-if="showItem">
     <button class="task__drag" v-if="isDraggable">
-      <img src="../assets/dots.svg" alt="drag-dots">
+      <img src="../assets/dots.svg" alt="drag-dots" />
     </button>
     <label class="fake">
       <input type="checkbox" :checked="isCompleted" @input="checkTask" />
@@ -36,7 +36,7 @@ interface data {
   isDisabled: boolean;
   inputData: string;
   currentText: string;
-  showItem: boolean
+  showItem: boolean;
 }
 
 export default defineComponent({
@@ -45,24 +45,24 @@ export default defineComponent({
     text: { type: String, required: true },
     isCompleted: { type: Boolean, required: true },
     id: { type: String, required: true },
-    isDraggable: {type: Boolean, required: true},
-    filter: {type: String, required: true}
+    isDraggable: { type: Boolean, required: true },
+    filter: { type: String, required: true },
   },
   data(): data {
     return {
       isDisabled: true,
       inputData: this.text,
       currentText: "",
-      showItem: true
+      showItem: true,
     };
   },
   watch: {
-    filter:function() {
-      this.checkFilter() 
+    filter: function () {
+      this.checkFilter();
     },
-    isCompleted:function() {
-      this.checkFilter() 
-    }
+    isCompleted: function () {
+      this.checkFilter();
+    },
   },
   methods: {
     checkTask(e: Event): void {
@@ -73,14 +73,17 @@ export default defineComponent({
       }
     },
     checkFilter() {
-      if(this.filter === "show-all") {
-        this.showItem = true
+      if (this.filter === "show-all") {
+        this.showItem = true;
       } else if (this.filter === "show-active" && this.isCompleted === false) {
-        this.showItem = true
-      } else if (this.filter === "show-completed" && this.isCompleted === true) {
-        this.showItem = true
+        this.showItem = true;
+      } else if (
+        this.filter === "show-completed" &&
+        this.isCompleted === true
+      ) {
+        this.showItem = true;
       } else {
-        this.showItem = false
+        this.showItem = false;
       }
     },
     removeTask(): void {
@@ -134,7 +137,7 @@ export default defineComponent({
     left: 0;
     top: 50%;
     opacity: 0;
-    transition: .5s all;
+    transition: 0.5s all;
     visibility: hidden;
     transform: translateY(-50%);
   }

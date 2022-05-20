@@ -1,5 +1,12 @@
 <template>
-  <draggable class="todo__list" tag="ul" :list="todoList" :disabled="filter === 'show-all' ? false : true" @change="changeList" handle=".task__drag">
+  <draggable
+    class="todo__list"
+    tag="ul"
+    :list="todoList"
+    :disabled="filter === 'show-all' ? false : true"
+    @change="changeList"
+    handle=".task__drag"
+  >
     <TodoTask
       v-for="task in todoList"
       :text="task.text"
@@ -19,35 +26,35 @@ import { defineComponent } from "vue";
 import TodoTask from "./TodoTask.vue";
 import type { Todo } from "../types";
 
-import { VueDraggableNext } from 'vue-draggable-next';
+import { VueDraggableNext } from "vue-draggable-next";
 
 export default defineComponent({
   name: "TodoInfo",
   components: {
     TodoTask,
-    draggable: VueDraggableNext
+    draggable: VueDraggableNext,
   },
-  props: { 
+  props: {
     list: {
       type: Array as () => Todo[] | [],
       required: true,
     },
-    filter: String
+    filter: String,
   },
   data(): { todoList: Todo[] | [] } {
     return {
-      todoList: this.list
+      todoList: this.list,
     };
   },
   watch: {
     todoList: function () {
       this.$emit("update-state", this.todoList);
     },
-    list: function() {
-      this.todoList = this.list
-    }
+    list: function () {
+      this.todoList = this.list;
+    },
   },
-  mounted() {   
+  mounted() {
     this.todoList = [...this.list];
   },
   methods: {
@@ -63,7 +70,7 @@ export default defineComponent({
       });
     },
     changeList() {
-      this.$emit("update-state", this.todoList)
+      this.$emit("update-state", this.todoList);
     },
     removeTodo(id: string) {
       this.todoList = this.list.filter((item) => {
