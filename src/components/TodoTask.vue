@@ -215,4 +215,12 @@ export default defineComponent({
     }
   }
 }
+
+@media(max-width: 575px) {
+  .task {
+    &__input {
+      font-size: 16px;
+    }
+  }
+}
 </style>

@@ -76,6 +76,7 @@ export default defineComponent({
 @media (max-width: 576px) {
   .input {
     width: 160px;
+    font-size: 16px;
   }
   .form {
     max-width: 160px;
