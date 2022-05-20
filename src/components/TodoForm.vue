@@ -49,7 +49,7 @@ export default defineComponent({
 @import "../assets/style/variables";
 .form {
   display: flex;
-  overflow-x: clip;
+  overflow-x: hidden;
   max-width: 317px;
   margin: 0 auto;
   transition: 0.5s all;
@@ -80,7 +80,7 @@ export default defineComponent({
   .form {
     max-width: 160px;
     &.show-btn {
-      max-width: 300px;
+      max-width: 250px;
     }
   }
 }
