@@ -1,25 +1,34 @@
-# vue-todo-test
+# Vue Todo task
 
-This template should help get you started developing with Vue 3 in Vite.
+Todo app was created using ***VueJs*** as a JavaScript framework. The functionality of the app is to *create* / *edit* / *remove* / *sort* / *filter* and *check* tasks as completed. 
+To add a new task you should input **at least 2 symbols** in the displayed form on the app page (button will appear).
+Added tasks could be ***removed***, ***checked as completed***, ***edited***, or ***moved to another position***. 
+When there are either completed and active tasks you can use ***filter buttons*** (All, Active, Completed) to look through specific tasks.
+"***Check all***" button marks all tasks as completed.
+"***Clear completed***" button removes completed tasks from the list.
 
-## Recommended IDE Setup
+Information blocks display statistics about all your tasks. 
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.vscode-typescript-vue-plugin).
+If tasks list is empty, footer appears with phrase *"Congrats, you have no more tasks to do"*.
 
-## Type Support for `.vue` Imports in TS
+Tasks are stored in the browser SessionStorage and won't disappear after page reloading* 
+**but would be missed after closing your browser*
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+### Used technologies:
+- Vue 3, 
+- TypeScript, 
+- ExpressServer (for deployment), 
+- Vuedraggable, 
+- Sass, 
+- Eslint+Prettier, 
+- Vite
+- Heroku
 
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+### App Screenshot: ![image](https://user-images.githubusercontent.com/78084319/169650673-aeff8c36-cbd2-47b1-925c-8b17634f8140.png)
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+*Project is deployed by ***Heroku:***** 
+https://vue-todo-test-mc.herokuapp.com/
 
 ## Project Setup
 
@@ -28,7 +37,6 @@ npm install
 ```
 
 ### Compile and Hot-Reload for Development
-
 ```sh
 npm run dev
 ```
@@ -38,9 +46,8 @@ npm run dev
 ```sh
 npm run build
 ```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+## Contacts
+**My telephone**: +375 44 596-55-89
+**Email address**: misochenkoas@gmail.com
+**Telegram**: t.me/misochenk0
+**LinkedIn profile**: https://www.linkedin.com/in/alexandr-misochenko-21743a170/
