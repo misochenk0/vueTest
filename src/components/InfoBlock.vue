@@ -2,6 +2,8 @@
   <div class="todo-info">
     <div class="todo-info__total">
       {{ tasksAmount }}
+      <!-- @if taskAmount === 1 or more than 11 and ends with 1 should be "task" 
+      @else should be "tasks"-->
       {{
         tasksAmount === 1
           ? "task"

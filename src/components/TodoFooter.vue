@@ -1,7 +1,7 @@
 <template>
   <div class="todo__footer">
     <img src="../assets/check.svg" alt="" />
-    Congrat, you have no more tasks to do
+    Congrats, you have no more tasks to do
   </div>
 </template>
 <script lang="ts">
@@ -12,7 +12,6 @@ export default defineComponent({
 });
 </script>
 <style lang="scss">
-@import "../assets/style/variables";
 .todo {
   &__footer {
     display: flex;

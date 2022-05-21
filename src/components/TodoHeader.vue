@@ -12,7 +12,6 @@ export default defineComponent({
 });
 </script>
 <style lang="scss">
-@import "../assets/style/variables";
 .todo {
   &__img {
     display: block;

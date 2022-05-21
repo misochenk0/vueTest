@@ -17,5 +17,6 @@ module.exports = {
     indent: ["error", 2],
     quotes: ["error", "double"],
     semi: ["error", "always"],
+    "prettier/prettier": ["error", { "endOfLine": "off" }]
   },
 };

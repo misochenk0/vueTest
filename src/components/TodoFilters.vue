@@ -62,14 +62,12 @@ export default defineComponent({
     list: function () {
       this.filters = this.filters.map((item) => {
         if (item.type === "check-all") {
-          // this.$emit("change-filter", this.filter)
           return {
             ...item,
             isShowed: this.list.some((item) => item.isCompleted === false),
           };
         }
         if (item.type === "clear-completed") {
-          // this.$emit("change-filter", this.filter)
           return {
             ...item,
             isShowed: this.list.some((item) => item.isCompleted === true),
